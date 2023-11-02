@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
 using Sagdeev_kt4220.Database;
+using Sagdeev_kt4220.ServiceExtensions;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,8 @@ try
 
     builder.Services.AddDbContext<PrepodDbcontext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+    builder.Services.AddServices();
 
     var app = builder.Build();
 
