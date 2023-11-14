@@ -3,6 +3,7 @@ using NLog;
 using NLog.Web;
 using Sagdeev_kt4220.Database;
 using Sagdeev_kt4220.ServiceExtensions;
+using Sagdeev_kt4220.Middlewares;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +35,8 @@ try
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+    app.UseMiddleware<ExceptionHandlerMiddleware>();
 
     app.UseAuthorization();
 
