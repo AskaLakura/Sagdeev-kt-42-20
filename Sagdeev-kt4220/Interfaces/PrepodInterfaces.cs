@@ -9,8 +9,7 @@ namespace Sagdeev_kt4220.Interfaces
 {
     public interface IPrepodService
     {
-        public Task<Prepod[]> GetPrepodsByGroupAsync(PrepodKafedraFilter filter, CancellationToken cancellationToken);
-
+        public Task<Prepod[]> GetPrepodsByKafedraAsync(PrepodKafedraFilter filter, CancellationToken cancellationToken);
     }
     public class PrepodService : IPrepodService
     {
@@ -19,13 +18,13 @@ namespace Sagdeev_kt4220.Interfaces
         {
             _dbContext = dbContext;
         }
-        public Task<Prepod[]> GetPrepodsByGroupAsync(PrepodKafedraFilter filter, CancellationToken cancellationToken = default)
+        public Task<Prepod[]> GetPrepodsByKafedraAsync(PrepodKafedraFilter filter, CancellationToken cancellationToken = default)
         {
-            var prepod = _dbContext.Set<Prepod>().Where(w => w.Kafedra.KafedraName == filter.KafedraName && w.Stepen.StepenName == filter.StepenName).ToArrayAsync(cancellationToken);
-            
+            var prepod = _dbContext.Set<Prepod>().Where(w => w.Kafedra.KafedraName == filter.KafedraName && w.Stepen.StepenName == filter.StepenName && w.Doljnost.DoljnostName == filter.DoljnostName).ToArrayAsync(cancellationToken);
+
             return prepod;
         }
 
-
     }
+
 }

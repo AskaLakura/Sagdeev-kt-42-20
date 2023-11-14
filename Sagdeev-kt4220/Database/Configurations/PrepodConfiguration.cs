@@ -51,6 +51,17 @@ namespace Sagdeev_kt4220.Database.Configurations
                 .HasConstraintName("fk_f_kafedra_id")
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.Property(p => p.DoljnostId)
+                .HasColumnName("doljnost_id")
+                .HasComment("Индетификатор кафедры");
+
+            builder.ToTable(TableName)
+                .HasOne(p => p.Doljnost)
+                .WithMany()
+                .HasForeignKey(p => p.DoljnostId)
+                .HasConstraintName("fk_f_doljnost_id")
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.Property(p => p.StepenId)
                 .HasColumnName("stepen_id")
                 .HasComment("Индетификатор степени");

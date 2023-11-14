@@ -11,6 +11,19 @@ namespace Sagdeev_kt4220.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "cd_doljnost",
+                columns: table => new
+                {
+                    doljnost_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор записи должности")
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    c_doljnost_name = table.Column<string>(type: "nvarchar(Max)", maxLength: 100, nullable: false, comment: "Название должности")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_cd_doljnost_doljnost_id", x => x.doljnost_id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "cd_kafedra",
                 columns: table => new
                 {
@@ -27,9 +40,9 @@ namespace Sagdeev_kt4220.Migrations
                 name: "cd_stepen",
                 columns: table => new
                 {
-                    stepen_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор записи кафедры")
+                    stepen_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор записи степени")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    c_stepen_name = table.Column<string>(type: "nvarchar(Max)", maxLength: 100, nullable: false, comment: "Название кафедры")
+                    c_stepen_name = table.Column<string>(type: "nvarchar(Max)", maxLength: 100, nullable: false, comment: "Название степени")
                 },
                 constraints: table =>
                 {
@@ -46,11 +59,18 @@ namespace Sagdeev_kt4220.Migrations
                     c_prepod_lastname = table.Column<string>(type: "nvarchar(Max)", maxLength: 100, nullable: false, comment: "Фамилия преподавателя"),
                     c_prepod_middlename = table.Column<string>(type: "nvarchar(Max)", maxLength: 100, nullable: false, comment: "Отчество преподавателя"),
                     kafedra_id = table.Column<int>(type: "int", nullable: false, comment: "Индетификатор кафедры"),
-                    stepen_id = table.Column<int>(type: "int", nullable: false, comment: "Индетификатор степени")
+                    stepen_id = table.Column<int>(type: "int", nullable: false, comment: "Индетификатор степени"),
+                    doljnost_id = table.Column<int>(type: "int", nullable: false, comment: "Индетификатор кафедры")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_cd_prepod_prepod_id", x => x.prepod_id);
+                    table.ForeignKey(
+                        name: "fk_f_doljnost_id",
+                        column: x => x.doljnost_id,
+                        principalTable: "cd_doljnost",
+                        principalColumn: "doljnost_id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_f_kafedra_id",
                         column: x => x.kafedra_id,
@@ -71,6 +91,11 @@ namespace Sagdeev_kt4220.Migrations
                 column: "stepen_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_cd_prepod_doljnost_id",
+                table: "cd_prepod",
+                column: "doljnost_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_cd_prepod_kafedra_id",
                 table: "cd_prepod",
                 column: "kafedra_id");
@@ -81,6 +106,9 @@ namespace Sagdeev_kt4220.Migrations
         {
             migrationBuilder.DropTable(
                 name: "cd_prepod");
+
+            migrationBuilder.DropTable(
+                name: "cd_doljnost");
 
             migrationBuilder.DropTable(
                 name: "cd_kafedra");

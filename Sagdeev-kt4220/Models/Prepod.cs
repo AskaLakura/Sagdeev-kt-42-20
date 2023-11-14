@@ -10,6 +10,8 @@
         public Kafedra Kafedra { get; set; }
         public int StepenId { get; set; }
         public Stepen Stepen { get; set; }
+        public int DoljnostId { get; set; }
+        public Doljnost Doljnost { get; set; }
 
     }
 }
