@@ -11,7 +11,7 @@ using Sagdeev_kt4220.Database;
 namespace Sagdeev_kt4220.Migrations
 {
     [DbContext(typeof(PrepodDbcontext))]
-    [Migration("20231114131305_CreateDatabase")]
+    [Migration("20231116135249_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />

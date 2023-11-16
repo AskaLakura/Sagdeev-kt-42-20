@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Sagdeev_kt4220.Controllers
 {
     [ApiController]
-    [Route("prepod")]
+    [Route("un")]
     public class PrepodController : ControllerBase
     {
         private readonly ILogger<PrepodController> _logger;
@@ -23,7 +23,7 @@ namespace Sagdeev_kt4220.Controllers
             _context = context;
         }
 
-        [HttpPost(Name = "GetPrepodsByKafedra")]
+        [HttpPost("GetPrepodsByKafedra", Name = "GetPrepodsByKafedra")]
         public async Task<IActionResult> GetPrepodsByKafedraAsync(PrepodKafedraFilter filter, CancellationToken cancellationToken = default)
         {
             var prepod = await _prepodService.GetPrepodsByKafedraAsync(filter, cancellationToken);
@@ -64,6 +64,23 @@ namespace Sagdeev_kt4220.Controllers
 
             return Ok();
         }
+
+        //удаление для препода
+        [HttpDelete("DeletePrepod")]
+        public IActionResult DeletePrepod(string firstname, Sagdeev_kt4220.Models.Prepod updatedPrepod)
+        {
+            var existingPrepod = _context.Prepod.FirstOrDefault(g => g.FirstName == firstname);
+
+            if (existingPrepod == null)
+            {
+                return NotFound();
+            }
+            _context.Prepod.Remove(existingPrepod);
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
         //добавление для кафедры
         [HttpPost("AddKafedra", Name = "AddKafedra")]
         public IActionResult CreateKafedra([FromBody] Sagdeev_kt4220.Models.Kafedra kafedra)
