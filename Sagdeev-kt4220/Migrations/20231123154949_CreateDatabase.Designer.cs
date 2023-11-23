@@ -11,7 +11,7 @@ using Sagdeev_kt4220.Database;
 namespace Sagdeev_kt4220.Migrations
 {
     [DbContext(typeof(PrepodDbcontext))]
-    [Migration("20231123142451_CreateDatabase")]
+    [Migration("20231123154949_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -75,6 +75,13 @@ namespace Sagdeev_kt4220.Migrations
                         .HasColumnType("nvarchar(Max)")
                         .HasColumnName("c_prepod_lastname")
                         .HasComment("Фамилия преподавателя");
+
+                    b.Property<string>("Mail")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(Max)")
+                        .HasColumnName("c_prepod_mail")
+                        .HasComment("Эл. почта преподавателя");
 
                     b.Property<string>("MiddleName")
                         .IsRequired()

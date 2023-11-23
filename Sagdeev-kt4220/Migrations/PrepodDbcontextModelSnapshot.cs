@@ -73,6 +73,13 @@ namespace Sagdeev_kt4220.Migrations
                         .HasColumnName("c_prepod_lastname")
                         .HasComment("Фамилия преподавателя");
 
+                    b.Property<string>("Mail")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(Max)")
+                        .HasColumnName("c_prepod_mail")
+                        .HasComment("Эл. почта преподавателя");
+
                     b.Property<string>("MiddleName")
                         .IsRequired()
                         .HasMaxLength(100)

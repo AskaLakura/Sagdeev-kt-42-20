@@ -40,6 +40,12 @@ namespace Sagdeev_kt4220.Database.Configurations
                 .HasColumnType(ColumnType.String).HasMaxLength(100)
                 .HasComment("Отчество преподавателя");
 
+            builder.Property(p => p.Mail)
+                .IsRequired()
+                .HasColumnName("c_prepod_mail")
+                .HasColumnType(ColumnType.String).HasMaxLength(100)
+                .HasComment("Эл. почта преподавателя");
+
             builder.Property(p => p.KafedraId)
                 .HasColumnName("kafedra_id")
                 .HasComment("Индетификатор кафедры");

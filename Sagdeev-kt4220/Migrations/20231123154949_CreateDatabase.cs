@@ -45,6 +45,7 @@ namespace Sagdeev_kt4220.Migrations
                     c_prepod_firstname = table.Column<string>(type: "nvarchar(Max)", maxLength: 100, nullable: false, comment: "Имя преподавателя"),
                     c_prepod_lastname = table.Column<string>(type: "nvarchar(Max)", maxLength: 100, nullable: false, comment: "Фамилия преподавателя"),
                     c_prepod_middlename = table.Column<string>(type: "nvarchar(Max)", maxLength: 100, nullable: false, comment: "Отчество преподавателя"),
+                    c_prepod_mail = table.Column<string>(type: "nvarchar(Max)", maxLength: 100, nullable: false, comment: "Эл. почта преподавателя"),
                     kafedra_id = table.Column<int>(type: "int", nullable: false, comment: "Индетификатор кафедры"),
                     stepen_id = table.Column<int>(type: "int", nullable: false, comment: "Индетификатор степени")
                 },
