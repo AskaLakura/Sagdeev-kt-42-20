@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Sagdeev_kt4220.Controllers
 {
     [ApiController]
-    [Route("un")]
+    [Route("controller")]
     public class PrepodController : ControllerBase
     {
         private readonly ILogger<PrepodController> _logger;
@@ -31,29 +31,26 @@ namespace Sagdeev_kt4220.Controllers
             return Ok(prepod);
         }
 
-        [HttpPost("GetPrepodsByStepen", Name = "GetPrepodsByStepen")]
-        public async Task<IActionResult> GetPrepodsByStepenAsync(PrepodStepenFilter filter, CancellationToken cancellationToken = default)
-        {
-            var prepod = await _prepodService.GetPrepodsByStepenAsync(filter, cancellationToken);
-
-            return Ok(prepod);
-        }
-
-        [HttpPost("GetPrepodsByDoljnost", Name = "GetPrepodsByDoljnost")]
-        public async Task<IActionResult> GetPrepodsByDoljnostAsync(PrepodDoljnostFilter filter, CancellationToken cancellationToken = default)
-        {
-            var prepod = await _prepodService.GetPrepodsByDoljnostAsync(filter, cancellationToken);
-
-            return Ok(prepod);
-        }
-
         //добавление для преподов
         [HttpPost("AddPrepod", Name = "AddPrepod")]
         public IActionResult CreatePrepod([FromBody] Prepod prepod)
         {
             if (!ModelState.IsValid)
             {
+
                 return BadRequest(ModelState);
+            }
+
+            var gr = _context.Kafedra.FirstOrDefault(g => g.KafedraId == prepod.KafedraId);
+            if (gr != null)
+            {
+                prepod.Kafedra = gr;
+            }
+
+            var deg = _context.Stepen.FirstOrDefault(d => d.StepenId == prepod.StepenId);
+            if (deg != null)
+            {
+                prepod.Stepen = deg;
             }
 
             _context.Prepod.Add(prepod);
@@ -76,7 +73,6 @@ namespace Sagdeev_kt4220.Controllers
             existingPrepod.MiddleName = updatedPrepod.MiddleName;
             existingPrepod.KafedraId = updatedPrepod.KafedraId;
             existingPrepod.StepenId = updatedPrepod.StepenId;
-            existingPrepod.DoljnostId = updatedPrepod.DoljnostId;
             _context.SaveChanges();
 
             return Ok();

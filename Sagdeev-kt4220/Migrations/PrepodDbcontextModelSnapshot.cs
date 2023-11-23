@@ -21,29 +21,6 @@ namespace Sagdeev_kt4220.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Sagdeev_kt4220.Models.Doljnost", b =>
-                {
-                    b.Property<int>("DoljnostId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("doljnost_id")
-                        .HasComment("Идентификатор записи должности");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DoljnostId"));
-
-                    b.Property<string>("DoljnostName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(Max)")
-                        .HasColumnName("c_doljnost_name")
-                        .HasComment("Название должности");
-
-                    b.HasKey("DoljnostId")
-                        .HasName("pk_cd_doljnost_doljnost_id");
-
-                    b.ToTable("cd_doljnost", (string)null);
-                });
-
             modelBuilder.Entity("Sagdeev_kt4220.Models.Kafedra", b =>
                 {
                     b.Property<int>("KafedraId")
@@ -76,11 +53,6 @@ namespace Sagdeev_kt4220.Migrations
                         .HasComment("Индетификатор записи преподавателя");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PrepodId"));
-
-                    b.Property<int>("DoljnostId")
-                        .HasColumnType("int")
-                        .HasColumnName("doljnost_id")
-                        .HasComment("Индетификатор кафедры");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -116,8 +88,6 @@ namespace Sagdeev_kt4220.Migrations
                     b.HasKey("PrepodId")
                         .HasName("pk_cd_prepod_prepod_id");
 
-                    b.HasIndex("DoljnostId");
-
                     b.HasIndex("KafedraId");
 
                     b.HasIndex(new[] { "StepenId" }, "idx_cd_prepod_fk_f_stepen_id");
@@ -150,13 +120,6 @@ namespace Sagdeev_kt4220.Migrations
 
             modelBuilder.Entity("Sagdeev_kt4220.Models.Prepod", b =>
                 {
-                    b.HasOne("Sagdeev_kt4220.Models.Doljnost", "Doljnost")
-                        .WithMany()
-                        .HasForeignKey("DoljnostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_f_doljnost_id");
-
                     b.HasOne("Sagdeev_kt4220.Models.Kafedra", "Kafedra")
                         .WithMany()
                         .HasForeignKey("KafedraId")
@@ -170,8 +133,6 @@ namespace Sagdeev_kt4220.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_f_stepen_id");
-
-                    b.Navigation("Doljnost");
 
                     b.Navigation("Kafedra");
 

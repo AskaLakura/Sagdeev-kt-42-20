@@ -11,7 +11,6 @@ namespace Sagdeev_kt4220.Database
         public DbSet<Kafedra> Kafedra { get; set; }
         public DbSet<Prepod> Prepod { get; set; }
         public DbSet<Stepen> Stepen { get; set; }
-        public DbSet<Doljnost> Doljnost { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -19,7 +18,6 @@ namespace Sagdeev_kt4220.Database
             modelBuilder.ApplyConfiguration(new PrepodConfiguration());
             modelBuilder.ApplyConfiguration(new KafedraConfiguration());
             modelBuilder.ApplyConfiguration(new StepenConfiguration());
-            modelBuilder.ApplyConfiguration(new DoljnostConfiguration());
         }
         public PrepodDbcontext(DbContextOptions<PrepodDbcontext> options) : base(options)
         {

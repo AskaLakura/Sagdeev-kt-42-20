@@ -10,8 +10,6 @@ namespace Sagdeev_kt4220.Interfaces
     public interface IPrepodService
     {
         public Task<Prepod[]> GetPrepodsByKafedraAsync(PrepodKafedraFilter filter, CancellationToken cancellationToken);
-        public Task<Prepod[]> GetPrepodsByStepenAsync(PrepodStepenFilter filter, CancellationToken cancellationToken);
-        public Task<Prepod[]> GetPrepodsByDoljnostAsync(PrepodDoljnostFilter filter, CancellationToken cancellationToken);
     }
     public class PrepodService : IPrepodService
     {
@@ -33,14 +31,6 @@ namespace Sagdeev_kt4220.Interfaces
 
             return prepod;
         }
-
-        public Task<Prepod[]> GetPrepodsByDoljnostAsync(PrepodDoljnostFilter filter, CancellationToken cancellationToken = default)
-        {
-            var prepod = _dbContext.Set<Prepod>().Where(w => w.Doljnost.DoljnostName == filter.DoljnostName).ToArrayAsync(cancellationToken);
-
-            return prepod;
-        }
-
     }
 
 }
