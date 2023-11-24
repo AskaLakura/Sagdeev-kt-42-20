@@ -18,7 +18,7 @@ namespace Sagdeev_kt4220.Tests
         public PrepodIntegrationTests()
         {
             _dbContextOptions = new DbContextOptionsBuilder<PrepodDbcontext>()
-            .UseInMemoryDatabase(databaseName: "prepod_db")
+            .UseInMemoryDatabase(databaseName: "prepod_db1")
             .Options;
         }
 
@@ -80,7 +80,7 @@ namespace Sagdeev_kt4220.Tests
                     MiddleName = "Человек_2",
                     Mail = "2222@mail.ru",
                     KafedraId = 1,
-                    StepenId = 1
+                    StepenId = 2
                 },
                 new Prepod
                 {
@@ -89,7 +89,7 @@ namespace Sagdeev_kt4220.Tests
                     MiddleName = "Человек_3",
                     Mail = "3333@mail.ru",
                     KafedraId = 2,
-                    StepenId = 1
+                    StepenId = 2
                 }
             };
             await ctx.Set<Prepod>().AddRangeAsync(prepods);
@@ -99,11 +99,11 @@ namespace Sagdeev_kt4220.Tests
             // Act
             var filter = new PrepodKafedraFilter
             {
-                KafedraName = "КТ"
+                KafedraName = "ИВТ"
             };
             var prepodsResult = await prepodService.GetPrepodsByKafedraAsync(filter, CancellationToken.None);
 
-            Assert.Equal(2, prepodsResult.Length);
+            Assert.Equal(1, prepodsResult.Length);
         }
     }
 }

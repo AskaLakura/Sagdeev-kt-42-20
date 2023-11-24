@@ -10,6 +10,7 @@ namespace Sagdeev_kt4220.Interfaces
     public interface IPrepodService
     {
         public Task<Prepod[]> GetPrepodsByKafedraAsync(PrepodKafedraFilter filter, CancellationToken cancellationToken);
+        public Task<Prepod[]> GetPrepodsByNameAsync(PrepodNameFilter filter, CancellationToken cancellationToken);
     }
     public class PrepodService : IPrepodService
     {
@@ -21,6 +22,13 @@ namespace Sagdeev_kt4220.Interfaces
         public Task<Prepod[]> GetPrepodsByKafedraAsync(PrepodKafedraFilter filter, CancellationToken cancellationToken = default)
         {
             var prepod = _dbContext.Set<Prepod>().Where(w => w.Kafedra.KafedraName == filter.KafedraName).ToArrayAsync(cancellationToken);
+
+            return prepod;
+        }
+
+        public Task<Prepod[]> GetPrepodsByNameAsync(PrepodNameFilter filter, CancellationToken cancellationToken = default)
+        {
+            var prepod = _dbContext.Set<Prepod>().Where(w => w.LastName == filter.LastName).ToArrayAsync(cancellationToken);
 
             return prepod;
         }

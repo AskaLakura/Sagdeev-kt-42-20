@@ -31,6 +31,14 @@ namespace Sagdeev_kt4220.Controllers
             return Ok(prepod);
         }
 
+        [HttpPost("GetPrepodsByName", Name = "GetPrepodsByName")]
+        public async Task<IActionResult> GetPrepodsByNameAsync(PrepodNameFilter filter, CancellationToken cancellationToken = default)
+        {
+            var prepod = await _prepodService.GetPrepodsByNameAsync(filter, cancellationToken);
+
+            return Ok(prepod);
+        }
+
         //добавление для преподов
         [HttpPost("AddPrepod", Name = "AddPrepod")]
         public IActionResult CreatePrepod([FromBody] Prepod prepod)
